@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
 	public static void main(String args[]) throws IOException {
@@ -6,14 +9,15 @@ public class Main {
 
 		int rep = Integer.parseInt(br.readLine());
 
-		String[] input = br.readLine().split(" ");
+		StringTokenizer st = new StringTokenizer(br.readLine());
+
 		int minNum = Integer.MAX_VALUE;
 		int maxNum = Integer.MIN_VALUE;
 
 		for (int i = 0; i < rep; i++) {
-			minNum = Math.min(Integer.parseInt(input[i]), minNum);
-			maxNum = Math.max(Integer.parseInt(input[i]), maxNum);
-
+			int num = Integer.parseInt(st.nextToken());
+			minNum = Math.min(num, minNum);
+			maxNum = Math.max(num, maxNum);
 		}
 
 		System.out.println(minNum + " " + maxNum);
