@@ -5,18 +5,22 @@ class Solution {
     public int solution(int[] people, int limit) {
         int answer = 0;
         
-        Arrays.sort(people);
+        List<Integer> list = new ArrayList<>();
         
-        int start = 0;
-        int end = people.length-1;
+        for(int p : people){
+            list.add(p);
+        }
+        
+        Collections.sort(list);
+        
+        int start =  0;
+        int end = list.size()-1;
         
         while (start <= end){
-            if (people[start] + people[end] > limit ){
-                end--;
-            }else{
+            if (list.get(start)+list.get(end) <= limit){
                 start++;
-                end--;
             }
+            end--;
             answer++;
         }
         
