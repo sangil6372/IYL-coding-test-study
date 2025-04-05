@@ -1,24 +1,36 @@
-import java.util.PriorityQueue;
-import java.util.Collections;
+import java.util.*;
 
 class Solution {
-    public int solution(int[] priorities, int location) {
-        int answer = 0;
-        PriorityQueue<Integer> priorityQueueHighest = new PriorityQueue<>(Collections.reverseOrder());
-		
-		for(int i=0; i<priorities.length; i++){
-            priorityQueueHighest.offer(priorities[i]);
+    public int solution(int[] priorities, int location) {        
+        Deque<int[]> deque = new ArrayDeque<>();
+        
+        for (int i = 0; i<priorities.length;i++){
+            if (i == location){
+                deque.addLast(new int[] {priorities[i], 1});
+            }else{
+                deque.addLast(new int[] {priorities[i], 0});
+            }
         }
-		while(!priorityQueueHighest.isEmpty()) {
-			for(int i=0; i<priorities.length; i++) {
-				if(priorities[i] == priorityQueueHighest.peek()) {
-					priorityQueueHighest.poll();
-					answer++;
-					if(i == location)
-						return answer;
-				}
-			}
-		}  
-        return answer;
+        
+        int cnt = 1;
+        while (!deque.isEmpty()){
+            int[] cur = deque.poll();
+            
+            boolean isPriority = true;  // 가장 우선순위를 갖는지?
+            for (int[] p : deque){
+                if (cur[0] < p[0]){
+                    deque.addLast(cur);
+                    isPriority = false;                    
+                    break;
+                }
+            }
+            if(isPriority){
+                if (cur[1] == 1) return cnt;
+                cnt++;
+            }
+        }
+        
+            
+        return cnt;
     }
 }
