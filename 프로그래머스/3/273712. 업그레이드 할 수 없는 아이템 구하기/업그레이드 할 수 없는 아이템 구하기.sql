@@ -1,11 +1,8 @@
-SELECT II.ITEM_ID, II.ITEM_NAME, II.RARITY
-FROM ITEM_INFO II JOIN ITEM_TREE IT
-ON II.ITEM_ID = IT.ITEM_ID
-WHERE IT.ITEM_ID NOT IN (
-    SELECT PARENT_ITEM_ID
-    FROM ITEM_TREE
-    WHERE PARENT_ITEM_ID IS NOT NULL
-)
-ORDER BY II.ITEM_ID DESC
-
-
+select i.item_id, item_name, i.rarity
+from item_info i 
+where not exists(
+    select *
+    from item_tree t
+    where t.parent_item_id = i.item_id
+    )
+order by i.item_id desc
