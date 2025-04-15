@@ -1,27 +1,27 @@
 class Solution {
-    static int maxCnt = 0;
-    
+   	static int maxDepth; 
+	static boolean[] visited;
     public int solution(int k, int[][] dungeons) {
+        int answer = -1;
+    
+        maxDepth = 0;
+        visited = new boolean[dungeons.length];
         
-        boolean[] visited = new boolean[dungeons.length]; // 방문 여부를 체크하는 배열
-        dfs(k, dungeons, visited, 0);
+        dfs(dungeons, 0, k );
         
-        
-        return maxCnt;
+        return maxDepth;
     }
     
-    public static void dfs (int k, int[][] dungeons, boolean[] visited, int count){
-        maxCnt = Math.max(maxCnt, count);
+    
+    public void dfs (int[][] dungeons, int depth, int k) {
+        maxDepth = Math.max(maxDepth, depth);
         
-        
-        for (int i = 0; i <dungeons.length; i++){
-            if (visited[i]==false && dungeons[i][0] <= k){        
+        for (int i = 0 ; i < dungeons.length; i++){
+            if (!visited[i]&&dungeons[i][0]<=k){
                 visited[i] = true;
-                dfs (k - dungeons[i][1], dungeons, visited, count+1);
+                dfs(dungeons, depth+1, k-dungeons[i][1]); // 소모 피로도 만큼 빼야함
                 visited[i] = false; // backtracking
             }
         }
-        
     }
-    
 }
