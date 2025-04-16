@@ -5,28 +5,27 @@ class Solution {
         
         Deque<Integer> deque = new ArrayDeque<>();
         
-        for (int i=0; i<progresses.length;i++){
+        for (int i = 0; i< progresses.length; i++){
             int remain = (100-progresses[i]+speeds[i]-1)/speeds[i];
-            deque.add(remain);
+            deque.addLast(remain);
         }
+        
         List<Integer> list = new ArrayList<>();
         
         while(!deque.isEmpty()){
             int curNode = deque.poll();
             
             int cnt = 1;
-            while(!deque.isEmpty()&&deque.peek()<=curNode){
+            while(!deque.isEmpty()&&curNode>=deque.peek()){
                 deque.poll();
-                cnt++;
+                cnt++;                
             }
             list.add(cnt);
         }
-        
         int[] answer = new int[list.size()];
-        for (int i = 0; i<list.size(); i++){
+        for (int i = 0 ; i < list.size(); i++ ){
             answer[i] = list.get(i);
         }
-        
         
         
         return answer;
