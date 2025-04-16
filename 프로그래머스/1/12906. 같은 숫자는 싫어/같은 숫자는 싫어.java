@@ -17,7 +17,6 @@ public class Solution {
             answer[i] = dQ.poll();
         }
         
-        
         return answer;
     }
 }
