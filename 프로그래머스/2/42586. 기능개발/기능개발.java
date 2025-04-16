@@ -2,30 +2,32 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        int[] answer = {};
-       
-        List<Integer> cntList = new ArrayList<>();
-        int N = progresses.length;
         
-        int[] days = new int[N];
+        Deque<Integer> deque = new ArrayDeque<>();
         
-        for (int i = 0; i < N ; i++){
-            int remaining = 100 - progresses[i];
-            days[i] = (remaining + speeds[i]-1)/speeds[i]; // 올림 해주기 위함!
+        for (int i=0; i<progresses.length;i++){
+            int remain = (100-progresses[i]+speeds[i]-1)/speeds[i];
+            deque.add(remain);
         }
-       
-        int left = 0;
-        while(left < N) {
-            int right = left + 1; // 탐색 시작에서 right는 left 바로 다음 위치부터 시작
-            while(right < N && days[right] <= days[left]) {
-                right++;
+        List<Integer> list = new ArrayList<>();
+        
+        while(!deque.isEmpty()){
+            int curNode = deque.poll();
+            
+            int cnt = 1;
+            while(!deque.isEmpty()&&deque.peek()<=curNode){
+                deque.poll();
+                cnt++;
             }
-            cntList.add(right-left); // 여기서 구간의 길이가 배포 개수! 
-       
-            left = right; // 다음 구간 탐색 
+            list.add(cnt);
         }
-       
-        answer = cntList.stream().mapToInt(i -> i).toArray(); 
+        
+        int[] answer = new int[list.size()];
+        for (int i = 0; i<list.size(); i++){
+            answer[i] = list.get(i);
+        }
+        
+        
         
         return answer;
     }
