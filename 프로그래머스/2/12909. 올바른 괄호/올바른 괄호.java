@@ -1,23 +1,20 @@
 import java.util.*;
-import java.io.*;
-
 
 class Solution {
     boolean solution(String s) {
         boolean answer = true;
-
-        Deque<Character> dq = new ArrayDeque<>();
+        
+        Deque<Character> deque = new ArrayDeque<>();
         
         for (char c : s.toCharArray()){
-            if (c == '('){
-                dq.addLast(c);
-            }else if ( c == ')' ){
-                if(dq.isEmpty()) return false;
-                dq.pop();
+            if (c==')'){
+                if (deque.isEmpty()||deque.peek()!='(') return false;
+                else deque.pop();
             }
+            else deque.push(c);
         }
-        if (!dq.isEmpty()) answer = false;
-        
+        if (!deque.isEmpty()) return false;
+
         return answer;
     }
 }
