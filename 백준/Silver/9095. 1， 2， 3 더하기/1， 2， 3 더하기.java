@@ -1,38 +1,32 @@
-
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
 
 	static int[] dp;
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		
-		int T = sc.nextInt();
-		dp = new int[12];
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		int T = Integer.parseInt(br.readLine());
+
+		dp = new int[11];
+
 		dp[1] = 1;
 		dp[2] = 2;
 		dp[3] = 4;
-		
 	
-		while(T-- > 0) {
-			int n = sc.nextInt();
-			recur(n);
-			System.out.println(dp[n]);
+		while(T-->0) {
+			int n = Integer.parseInt(br.readLine());
+			sb.append(recur(n)+"\n");
 		}
-		
-		
-		
-		
-		sc.close();
+		System.out.println(sb);
 	}
 
-	static int recur(int n) {
-		if (dp[n]>0) return dp[n];
-		else dp[n] = recur(n-1) + recur(n-2) + recur(n-3);
-		
-		
-		return dp[n];
+	static int recur(int i) {
+		if (dp[i] > 0)
+			return dp[i];
+		dp[i] = recur(i-1) + recur(i-2) + recur(i-3);
+		return dp[i];
 	}
-	
 }
