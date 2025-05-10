@@ -1,19 +1,28 @@
-import java.util.*;
-
 class Solution {
     public int solution(String skill, String[] skill_trees) {
         int answer = 0;
-        int[] skillLoc = new int [skill.length()];
+        
+//  indexOf 로 문자열에서 문자의 인덱스를 알 수 있음 
+        
         for (String skill_tree : skill_trees){
-            int  prevIdx = -1;
+//             각 문자열 검증 ㄱㄱ
+            /*
+            첨에 든 생각은 
+            CBD -> 123 135 혹은 1_4 이런식일텐데 
+            그러면 바깥 반복문을 skill로 해야하나? 
+            단조성만 확인하면 되니깐 <- 이전 위치 기록보다 한 번이라도 작아지면 컷
+            */
+            int prevIdx = -1;
             boolean isOrdered = true;
-            for (char c : skill.toCharArray()){
-                int currIdx = skill_tree.indexOf(c); // 없으면 -1 리턴 
+            for(char c : skill.toCharArray()) {
+                int currIdx = skill_tree.indexOf(c);
                 if (currIdx == -1) currIdx = Integer.MAX_VALUE;
-                if (currIdx < prevIdx) {
-                    isOrdered = false; // 순서 잘못되는게 하나라도 있으면 체크 
+                
+                if (prevIdx > currIdx) {
+                    isOrdered = false;
                     break;
                 }
+                
                 prevIdx = currIdx;
             }
             if (isOrdered) answer++;
@@ -21,7 +30,7 @@ class Solution {
         
         
         
-        
         return answer;
     }
+        
 }
