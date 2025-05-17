@@ -18,7 +18,7 @@ public class Main {
 
     static final int INF = Integer.MAX_VALUE;
     static List<Node>[] graph;
-    static int[] dist;
+    static int[] dist;                                                         
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
