@@ -1,47 +1,44 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
+    static int N, M;
+    static int min;
+    static int[] numbers;
 
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-		int[] arr = new int[N];
-		for (int i = 0; i < N; i++) {
-			arr[i] = Integer.parseInt(br.readLine());
-		}
-		Arrays.sort(arr);
-		// 두 수를 고름(같은 수 일 수도 있음)-> 차이가 M 이상 + 제일 작은 경우   
+        numbers = new int[N];
+        min = Integer.MAX_VALUE;
+        for (int i = 0; i < N; i++) {
+            numbers[i] = Integer.parseInt(br.readLine());
+        }
+        Arrays.sort(numbers);
+        findNum();
+        System.out.println(min);
+    }
 
-		// ex) 1 5 3 -> 3이상 가장 작은 차이? 1 5 -> 차이 4
-		// 1 3 5 라고 할 때 1 검사 -> 3 5 .... 이런식으로 하다가 처음으로 넘기는 시점 gap 체크 
-		
-		// 첫째 줄에 M 이상이면서 가장 작은 차이를 출력
-		
-		int minGap = Integer.MAX_VALUE;
-		
-		for (int i = 0 ; i < N ; i++) {
-			
-			int diff = 0;
-			for (int j = i ; j < N ; j++) {
-				diff = arr[j] - arr[i];
-				if (diff >= M) {
-					minGap = Math.min(minGap, diff);
-					break;
-				}
-			}
-		}
-		
-		
-		
-		
-		
-		
-		System.out.println(minGap);
-		
-	}
+    public static void findNum() {
+        int start = 0;
+        int end = 0;
+        while (start < N && end < N) {
+            int temp = numbers[end] - numbers[start];
+            if (temp >= M) {
+                min = Math.min(min, temp);
+                start++;
+            } else {
+                end++;
+            }
+        }
+    }
+
+
 }
