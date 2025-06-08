@@ -41,35 +41,38 @@ public class Main {
 	}
 
 	// 최단 거리 중 가장 긴...!
-	static int bfs(int x, int y) {
-		Queue<int[]> queue = new LinkedList<>();
-		visited = new boolean[L][W];
+static int bfs(int x, int y) {
+	Queue<int[]> queue = new LinkedList<>();
+	visited = new boolean[L][W];
+	visited[x][y] = true;
+	queue.offer(new int[] { x, y });
 
-		queue.offer(new int[] { x, y, 0 });
-		visited[x][y] = true; // 시작점 방문 체크
+	int depth = -1;
 
-		int maxDist = 0;
+	while (!queue.isEmpty()) {
+		int size = queue.size();
+		depth++; // 한 레벨 깊어질 때마다 증가
 
-		while (!queue.isEmpty()) {
+		for (int i = 0; i < size; i++) {
 			int[] curr = queue.poll();
-			int cx = curr[0], cy = curr[1], cd = curr[2];
-
-			maxDist = Math.max(maxDist, cd);
+			int cx = curr[0];
+			int cy = curr[1];
 
 			for (int d = 0; d < 4; d++) {
 				int nx = cx + dx[d];
 				int ny = cy + dy[d];
-				int nd = cd + 1;
 
 				if (nx >= 0 && ny >= 0 && nx < L && ny < W) {
 					if (!visited[nx][ny] && graph[nx][ny] == 1) {
 						visited[nx][ny] = true;
-						queue.offer(new int[] { nx, ny, nd });
+						queue.offer(new int[] { nx, ny });
 					}
 				}
 			}
 		}
-		return maxDist;
 	}
+	return depth;
+}
+
 
 }
