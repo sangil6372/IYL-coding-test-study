@@ -47,11 +47,7 @@ public class Main {
 					queue.offer(next);
 				}
 			}
-		}
-		
-		
-		
+		}		
 	}
-	
 
 }
